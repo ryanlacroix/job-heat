@@ -1,0 +1,152 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* END OF CSS RESET */
+
+@font-face {
+    font-family: 'HelveticaNeue-Thin';
+    src: local('HelveticaNeue-Thin.otf'), url('HelveticaNeue-Thin.otf') format('opentype');
+}
+
+#main {
+	/*
+	background: url('Dune10.jpg');
+	background-size:cover;
+	background-position: bottom; */
+	background-color: brown;
+	height: 100vh;
+}
+
+
+
+#main .container-search {
+	margin: auto auto;
+	text-align: center;
+	font-family: 'Montserrat', sans-serif;
+	padding-bottom: 100px;
+	padding-top: 100px;
+}
+
+.container-search h4 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	font-family: 'Permanent Marker', cursive;
+	font-size: 20px;
+	background-color: rgba(70, 70, 70, 0.5)
+}
+
+h1 {
+	font-family: 'Righteous', cursive;
+	font-size: 55px;
+	font-weight: 800;
+	color: goldenrod;
+	text-shadow: 8px 8px 1px #000;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+#searchTitle {
+	border-radius: 7px;
+	background-color: goldenrod;
+}
+
+#submitSearch {
+	background-color: red;
+	border-radius: 50px;
+	font-family: 'Righteous', cursive;
+	text-decoration: none;
+	color: white;
+	margin-left: 5px;
+	transition: 0.3s;
+}
+
+/* Results page */
+.vlow {
+}
+
+.rlow {
+}
+
+.moderate {
+	color: darkgreen;
+}
+
+.high {
+	font-style: italic;
+	color:chocolate;
+}
+
+.vhigh {
+	font-style: italic;
+	color: red;
+}
+
+.container-result {
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+#result-list {
+	background-color: rgba(200, 200, 200, 0.5);
+	-webkit-box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
+	border-radius: 20px;
+	width: 50%;
+	margin: auto auto;
+}
+li {
+	font-family: 'HelveticaNeue-Thin';
+	font-size: 20px;
+	font-weight: 900;
+	line-height: 30px;
+	padding-left: 30px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
