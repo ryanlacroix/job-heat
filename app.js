@@ -52,7 +52,7 @@ app.get('/jobreq/:jobTitle', function (req, res){
 	});
 });
 
-app.listen('2406');
+app.listen(process.env.PORT || 3000);
 console.log('listening for requests on 2406');
 
 
