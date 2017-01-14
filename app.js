@@ -30,21 +30,18 @@ app.get('/jobreq/:jobTitle', function (req, res){
 		} else {
 			var $ = cheerio.load(html);
 			console.log('request succeeded');
-			//console.log(html);
 			
 			var totalJobs;
 			$('#searchCount').filter(function() {
 				var rawJobs = $(this).text();
 				totalJobs = rawJobs.substring(rawJobs.indexOf("f")+1, rawJobs.length);
-				console.log('Total jobs: ' + totalJobs);
-				//res.send(totalJobs);
+				//console.log('Total jobs: ' + totalJobs);
 				citySearch.getTopCities(jobTitle, totalJobs, function (cityList) {
 					var sendObj = {
 						'jobTitle': jobTitle, 
 						'cities': cityList, 
 						'totalJobs': totalJobs
 					}
-					console.log(sendObj);
 					res.send(JSON.stringify(sendObj));
 				});
 			});
@@ -52,7 +49,7 @@ app.get('/jobreq/:jobTitle', function (req, res){
 	});
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 2406);
 console.log('listening for requests on 2406');
 
 

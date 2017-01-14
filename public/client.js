@@ -14,21 +14,18 @@ function sendSearch () {
 function showResult (data) {
 	// Clear the search page from the screen and show results
 	var result = JSON.parse(data);
-	$('h1').animate({'padding-top': "-50px"},  500, 'swing', function() {
-		$('#main').append("<div class='container-result'></div>");
-		//if (result.total)
-		$('.container-result').append("<ol id='result-list'></ol>");
-		for (var i = 0; i < result.cities.length; i++) {
-			$('#result-list').append('<li>'+ (i+1) + '. ' + result.cities[i].name + ' ' + jobPopularity(result.cities[i].quantity) + '</li>');
-		}
-	}); // dragging whole page?
 	$('.container-search').fadeOut(1000, function () {
 		$(this).remove();
-		
+		setTimeout(function() {
+			$('#main').append("<div class='container-result'></div>");
+			$('.container-result').hide();
+			$('.container-result').fadeIn(1000);
+			$('.container-result').append("<ol id='result-list'></ol>");
+			for (var i = 0; i < result.cities.length; i++) {
+				$('#result-list').append('<li>'+ (i+1) + '. ' + result.cities[i].name + ' ' + jobPopularity(result.cities[i].quantity) + '</li>');
+			}
+		}, 50);
 	});
-	console.log(result);
-	
-	console.log(result.jobTitle)
 }
 
 function jobPopularity(pop) {

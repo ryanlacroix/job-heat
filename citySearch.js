@@ -2,11 +2,8 @@ var hapi = require("indeed-jobs-api").getInstance("1589380144958658");
 var MAX_RESULTS = 2000;
 
 function pageSearcher(b, cityList, jobTitle, totalJobs, callback) {
-	//var b = i;
-	console.log("b =" + b + "  totalJobs =" + totalJobs);
-	//if (i < totalJobs){
+	//console.log("b =" + b + "  totalJobs =" + totalJobs);
 	hapi.JobSearch().Limit(25).FromResult(b).WhereKeywords([jobTitle]).WhereCountry("ca").SortBy("relevance").IncludePosition(true).UserIP("1.2.3.4").UserAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36").Search(function (results) {
-		// do something with the success results
 		var actl = JSON.parse(results).results;
 		getCityStats(actl, cityList, function (cityList) {
 			cityList = cityList.sort(function (a, b) {
@@ -14,30 +11,27 @@ function pageSearcher(b, cityList, jobTitle, totalJobs, callback) {
 			});
 			currPage += 1;
 			if ((currPage == (MAX_RESULTS / 25) && b != MAX_RESULTS + 1) || (b >= totalJobs - 25 && b < MAX_RESULTS)) {
+				/*
 				console.log("SENDING CALLBACK");
 				console.log("CURRPAGE IS " + currPage);
-				console.log("b IS " + b);
+				console.log("b IS " + b); */
 				b = MAX_RESULTS + 1;
 				// Return top 10 cities
 				callback(cityList.slice(0, 10));
 			}
 		});
 		// Check if this is the last search
-	}, function (error) {
-		// do something with the error results 
+	}, function (error) { 
 		console.log(error);
 	});
 }
 
 function doSearch(jobTitle, totalJobs, callback) {
 	var cityStats;
-	console.log('in doSearch');
-	console.log(parseInt(totalJobs));
 	var cityList = [];
 	totalJobs = parseInt(totalJobs.replace(',',''));
 	currPage = 0;
 	for (var i = 0; i < MAX_RESULTS && i < totalJobs; i += 25) {
-		console.log (i);
 		pageSearcher(i, cityList, jobTitle, totalJobs, callback);
 	}
 }
