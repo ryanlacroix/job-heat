@@ -5,6 +5,7 @@ var fs = require('fs');
 var citySearch = require('./citySearch');
 
 var app = express();
+var ROOT = './public';
 
 app.use("*", function (req, res, next) {
 	console.log(req.url);
@@ -14,8 +15,7 @@ app.use("*", function (req, res, next) {
 app.use(express.static("./public"));
 // Home route
 app.get('/', function (req, res) {
-	//res.writeHead('200', 'content-type': mime.lookup(filename)||'text/html');
-	data = fs.readFileSync('./public/index.html'); // needs root dir
+	data = fs.readFileSync(ROOT + '/index.html');
 	res.end(data);
 });
 
@@ -30,12 +30,10 @@ app.get('/jobreq/:jobTitle', function (req, res){
 		} else {
 			var $ = cheerio.load(html);
 			console.log('request succeeded');
-			
 			var totalJobs;
 			$('#searchCount').filter(function() {
 				var rawJobs = $(this).text();
 				totalJobs = rawJobs.substring(rawJobs.indexOf("f")+1, rawJobs.length);
-				//console.log('Total jobs: ' + totalJobs);
 				citySearch.getTopCities(jobTitle, totalJobs, function (cityList) {
 					var sendObj = {
 						'jobTitle': jobTitle, 
@@ -51,20 +49,3 @@ app.get('/jobreq/:jobTitle', function (req, res){
 
 app.listen(process.env.PORT || 2406);
 console.log('listening for requests on 2406');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// whiterabbit4fun
