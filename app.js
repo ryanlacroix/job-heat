@@ -19,11 +19,13 @@ app.get('/', function (req, res) {
 	res.end(data);
 });
 
+// Request received for a job title
 app.get('/jobreq/:jobTitle', function (req, res){
 	var jobTitle = req.params.jobTitle;
 	jobTitle = jobTitle.replace(' ', '-');
 	url = 'http://ca.indeed.com/' + jobTitle + '-jobs';
 	console.log(url);
+	// Retrieve the listings from indeed
 	request(url, function (err, response, html) {
 		if (err) {
 			console.log("Could not connect to" + url);
@@ -34,6 +36,7 @@ app.get('/jobreq/:jobTitle', function (req, res){
 			$('#searchCount').filter(function() {
 				var rawJobs = $(this).text();
 				totalJobs = rawJobs.substring(rawJobs.indexOf("f")+1, rawJobs.length);
+				// Generate a list of top cities
 				citySearch.getTopCities(jobTitle, totalJobs, function (cityList) {
 					var sendObj = {
 						'jobTitle': jobTitle, 
