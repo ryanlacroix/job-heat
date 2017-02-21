@@ -1,8 +1,9 @@
+// This file contains functions relating to the retrieval of job data
+
 var hapi = require("indeed-jobs-api").getInstance("1589380144958658");
 var MAX_RESULTS = 2000;
 
 function pageSearcher(b, cityList, jobTitle, totalJobs, callback) {
-	//console.log("b =" + b + "  totalJobs =" + totalJobs);
 	hapi.JobSearch().Limit(25).FromResult(b).WhereKeywords([jobTitle]).WhereCountry("ca").SortBy("relevance").IncludePosition(true).UserIP("1.2.3.4").UserAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36").Search(function (results) {
 		var actl = JSON.parse(results).results;
 		getCityStats(actl, cityList, function (cityList) {
@@ -11,16 +12,11 @@ function pageSearcher(b, cityList, jobTitle, totalJobs, callback) {
 			});
 			currPage += 1;
 			if ((currPage == (MAX_RESULTS / 25) && b != MAX_RESULTS + 1) || (b >= totalJobs - 25 && b < MAX_RESULTS)) {
-				/*
-				console.log("SENDING CALLBACK");
-				console.log("CURRPAGE IS " + currPage);
-				console.log("b IS " + b); */
 				b = MAX_RESULTS + 1;
 				// Return top 10 cities
 				callback(cityList.slice(0, 10));
 			}
 		});
-		// Check if this is the last search
 	}, function (error) { 
 		console.log(error);
 	});
@@ -37,11 +33,8 @@ function doSearch(jobTitle, totalJobs, callback) {
 }
 
 function getCityStats(rawStats, cityList, callback) {
-	//var cityList = [];
-	//console.log(rawStats.length);
 	for (var i = 0; i < rawStats.length; i++) {
 		var locationInList = partOf(rawStats[i].city, cityList);
-		//console.log(locationInList);
 		if (locationInList != "false") {
 			cityList[locationInList].quantity += 1;
 		}
@@ -53,12 +46,9 @@ function getCityStats(rawStats, cityList, callback) {
 				tempCity.lon = rawStats[i].longitude;
 				tempCity.quantity = 1;
 				cityList.push(tempCity);
-				//console.log(tempCity);
 			}
 		}
 	}
-	//console.log(cityList);
-	//return cityList;
 	callback(cityList);
 }
 // Check if list already contains city of same name
@@ -70,5 +60,4 @@ function partOf(currCityName, cityList) {
 	// Return a string to prevent error of interpreting
 	// index 0 as false;
 }
-//main();
 module.exports.getTopCities = doSearch;
