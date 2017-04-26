@@ -25,7 +25,7 @@ function showResult (data) {
 	$('.container-search').fadeOut(1000, function () {
 		$(this).remove();
 		setTimeout(function() {
-			$('#main').append("<h1 id='resTitle'>Results for: " + result.jobTitle + "</h1>");
+			$('#main').append("<h2 id='resTitle'>Results for " + result.jobTitle + ":</h2>");
 			$('#main').append("<div class='container-result'></div>");
 			
 			$('.container-result').hide();

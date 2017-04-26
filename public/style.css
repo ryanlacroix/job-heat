@@ -94,6 +94,16 @@ h1 {
 	position: relative;
 }
 
+h2 {
+	font-family: 'Righteous', cursive;
+	font-size: 30px;
+	font-weight: 800;
+	color: goldenrod;
+	text-shadow: 2px 2px 1px #000;
+	margin-bottom: 10px;
+	position: relative;
+}
+
 #resTitle {
 	background-color: rgba(70, 70, 70, 0.5);
 	padding-bottom: 5px;
@@ -118,7 +128,8 @@ h1 {
 /* Results page */
 
 #map {
-	width: 50%;
+	width: 90%;
+	max-width: 750px;
 	height: 400px;
 	background-color: grey;
 	margin: auto;
@@ -156,7 +167,8 @@ h1 {
 	-moz-box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
 	box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
 	border-radius: 20px;
-	width: 50%;
+	width: 90%;
+	max-width: 750px;
 	margin: auto auto;
 }
 
