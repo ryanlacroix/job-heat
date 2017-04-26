@@ -67,8 +67,6 @@ body {
 	height: 100vh;
 }
 
-
-
 #main .container-search {
 	margin: auto auto;
 	text-align: center;
@@ -151,6 +149,7 @@ h1 {
 	padding-top: 40px;
 	padding-bottom: 40px;
 }
+
 #result-list {
 	background-color: rgba(200, 200, 200, 0.5);
 	-webkit-box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
@@ -160,6 +159,7 @@ h1 {
 	width: 50%;
 	margin: auto auto;
 }
+
 li {
 	font-family: 'HelveticaNeue-Thin';
 	font-size: 20px;
