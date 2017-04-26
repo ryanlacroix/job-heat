@@ -54,6 +54,10 @@ table {
     src: local('HelveticaNeue-Thin.otf'), url('HelveticaNeue-Thin.otf') format('opentype');
 }
 
+body {
+	background-color: brown;
+}
+
 #main {
 	/*
 	background: url('Dune10.jpg');
@@ -79,7 +83,7 @@ table {
 	margin-bottom: 10px;
 	font-family: 'Permanent Marker', cursive;
 	font-size: 20px;
-	background-color: rgba(70, 70, 70, 0.5)
+	background-color: rgba(70, 70, 70, 0.5);
 }
 
 h1 {
@@ -90,6 +94,12 @@ h1 {
 	text-shadow: 8px 8px 1px #000;
 	margin-bottom: 10px;
 	position: relative;
+}
+
+#resTitle {
+	background-color: rgba(70, 70, 70, 0.5);
+	padding-bottom: 5px;
+	padding-top: 5px;
 }
 
 #searchTitle {
@@ -108,6 +118,15 @@ h1 {
 }
 
 /* Results page */
+
+#map {
+	width: 50%;
+	height: 400px;
+	background-color: grey;
+	margin: auto;
+	padding-bottom: 40px;
+}
+
 .vlow {
 }
 
