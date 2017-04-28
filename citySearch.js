@@ -1,21 +1,24 @@
 // This file contains functions relating to the retrieval of job data
+
 var request = require('request');
 var cheerio = require('cheerio');
-
-// BEGIN INDEED FUNCTIONS
 
 var hapi = require("indeed-jobs-api").getInstance("1589380144958658");
 var MAX_RESULTS = 2000;
 
+// Search an individual page of results. The Indeed API only allows maximum 25 results
+// at a time, so this is called repeatedly until all results are retrieved.
 function pageSearcher(b, cityList, jobTitle, totalJobs, callback) {
 	hapi.JobSearch().Limit(25).FromResult(b).WhereKeywords([jobTitle]).WhereCountry("ca").SortBy("relevance").IncludePosition(true).UserIP("1.2.3.4").UserAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36").Search(function (results) {
 		var actl = JSON.parse(results).results;
+		// Parse the results into a ranked list
 		getCityStats(actl, cityList, function (cityList) {
 			cityList = cityList.sort(function (a, b) {
 				return b.quantity - a.quantity;
 			});
 			currPage += 1;
 			if ((currPage == (MAX_RESULTS / 25) && b != MAX_RESULTS + 1) || (b >= totalJobs - 25 && b < MAX_RESULTS)) {
+				// Reached the end of the search results
 				b = MAX_RESULTS + 1;
 				// Return top 10 cities
 				finishedQueries(cityList.slice(0, 10), callback);
@@ -26,8 +29,7 @@ function pageSearcher(b, cityList, jobTitle, totalJobs, callback) {
 	});
 }
 
-
-
+// Entry point. Initiates the search across both job sites.
 function doSearch(jobTitle, totalJobs, callback) {
 	// Do the search using Indeed
 	var cityStats;
@@ -42,13 +44,16 @@ function doSearch(jobTitle, totalJobs, callback) {
 	doSearchMonster(monsterJobTitle, callback);
 }
 
+// Add the city into the results appropriately.
 function getCityStats(rawStats, cityList, callback) {
 	for (var i = 0; i < rawStats.length; i++) {
 		var locationInList = partOf(rawStats[i].city, cityList);
 		if (locationInList != "false") {
+			// City is already in the results list.
 			cityList[locationInList].quantity += 1;
 		}
 		else {
+			// City is not already in the results list
 			if (rawStats[i].city != "") {
 				var tempCity = {};
 				tempCity.name = rawStats[i].city;
@@ -61,6 +66,7 @@ function getCityStats(rawStats, cityList, callback) {
 	}
 	callback(cityList);
 }
+
 // Check if list already contains city of same name
 function partOf(currCityName, cityList) {
 	for (var i = 0; i < cityList.length; i++) {
@@ -70,8 +76,6 @@ function partOf(currCityName, cityList) {
 	// Return a string to prevent error of interpreting
 	// index 0 as false;
 }
-
-// END INDEED FUNCTIONS
 
 // Intermediate function, call after each query is completed.
 // If all queries are finished, returns results to callback.
@@ -84,7 +88,6 @@ function finishedQueries(cityList, callback) {
 	else {
 		// If both search queries have now returned
 		accuList = accuList.concat(cityList);
-		// TODO Should maybe cut the Monster list down to 10 first
 		
 		// Merge the two lists
 		var mergedCityList = [];
@@ -94,7 +97,6 @@ function finishedQueries(cityList, callback) {
 			if (locationInList != "false") {
 				// This city is already in the list
 				mergedCityList[locationInList].quantity += 1;
-				//console.log(i);
 			} else {
 				// City is not in the list, create an entry for it
 				mergedCityList.push({
@@ -114,13 +116,9 @@ function finishedQueries(cityList, callback) {
 	}
 }
 
-// BEGIN MONSTER FUNCTIONS
-
 // Scrape the Monster site for job listings
 function doSearchMonster(jobTitle, callback) {
-	//console.log(jobTitle);
 	var monsterURL = "https://www.monster.ca/jobs/search/?q=" + jobTitle + "&where=canada&client=classic";
-	//var monsterURL = "https://www.monster.ca/jobs/search/?q=welder&where=canada&client=classic";
 	var options = {
 		url: monsterURL,
 		headers: {
@@ -151,6 +149,7 @@ function doSearchMonster(jobTitle, callback) {
 						'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0'
 					}
 				};
+				// Request each page of results to scrape from
 				request(options, function(err, response, html) {
 					$('div.job-specs p a').each(function (index, element) {
 						var cityName = $(element).text();
@@ -182,10 +181,4 @@ function doSearchMonster(jobTitle, callback) {
 	});
 }
 
-// END MONSTER FUNCTIONS
 module.exports.getTopCities = doSearch;
-module.exports.getTopCitiesMonster = doSearchMonster;
-
-// testing
-//doSearch('web developer', '200', function(cit){console.log(cit)});
-
