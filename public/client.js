@@ -28,7 +28,14 @@ function showResult (data) {
 		$(this).remove();
 		setTimeout(function() {
 			// Build the results page
-			$('#main').append("<h2 id='resTitle'>Results for " + result.jobTitle + ":</h2>");
+			$('#main').append("<div id='titleBarRes'></div>")
+			$('#titleBarRes').append("<h2 id='resTitle'>Results for " + result.jobTitle.replace('-', ' ') + ":</h2>");
+			$('#titleBarRes').append("<button id='gotoSearch'>Back to search</button>");
+			$('#gotoSearch').click(function(){
+				$('#main').fadeOut(1000, function() {
+					location.reload(true);
+				});
+			});
 			$('#main').append("<div class='container-result'></div>");
 			$('.container-result').hide();
 			$('.container-result').fadeIn(1000);
@@ -68,7 +75,7 @@ function loadMapAPI(){
 
 // Build the heat map on the page based on query results
 function buildMap(mapData) {
-	$("<div id='map'></div>").insertAfter($('#resTitle'));
+	$("<div id='map'></div>").insertAfter($('#titleBarRes'));
 	var canadaPos = {lat: 51, lng: -92};
 	// Create the map and put it on the page
 	map = new google.maps.Map(document.getElementById('map'), {
