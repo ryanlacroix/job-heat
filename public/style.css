@@ -144,6 +144,7 @@ h2 {
 	width: 100%;
 	display: inline-flex;
 	justify-content: space-between;
+	align-items: center; 
 }
 
 #gotoSearch {
@@ -157,7 +158,9 @@ h2 {
 	float: right;
 	font-size: 15px;
 	height: 25px;
-	margin: 10px;
+	margin-right: 5px;
+	white-space: nowrap;
+	text-shadow: 3px 0px 1px #000;
 }
 
 .vlow {
