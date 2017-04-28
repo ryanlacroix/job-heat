@@ -100,11 +100,7 @@ h2 {
 	position: relative;
 }
 
-#resTitle {
-	background-color: rgba(70, 70, 70, 0.5);
-	padding-bottom: 5px;
-	padding-top: 5px;
-}
+
 
 #searchTitle {
 	border-radius: 7px;
@@ -129,7 +125,39 @@ h2 {
 	height: 400px;
 	background-color: grey;
 	margin: auto;
+	margin-top: 20px;
 	padding-bottom: 40px;
+	-webkit-box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 11px 3px rgba(0,0,0,0.75);
+	border-radius: 20px;
+}
+
+#resTitle {
+	padding-top: 5px;
+	padding-left: 10px;
+	float: left;
+}
+
+#titleBarRes {
+	background-color: rgba(70, 70, 70, 0.5);
+	width: 100%;
+	display: inline-flex;
+	justify-content: space-between;
+}
+
+#gotoSearch {
+	background-color: red;
+	border-radius: 50px;
+	font-family: 'Righteous', cursive;
+	text-decoration: none;
+	color: white;
+	margin-left: 5px;
+	transition: 0.3s;
+	float: right;
+	font-size: 15px;
+	height: 25px;
+	margin: 10px;
 }
 
 .vlow {
