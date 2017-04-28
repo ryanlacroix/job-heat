@@ -19,6 +19,8 @@ app.get('/', function (req, res) {
 	res.end(data);
 });
 
+// "https://www.monster.ca/jobs/search/?q=welder&where=canada&client=classic"
+
 // Request received for a job title
 app.get('/jobreq/:jobTitle', function (req, res){
 	var jobTitle = req.params.jobTitle;
@@ -43,12 +45,21 @@ app.get('/jobreq/:jobTitle', function (req, res){
 						'cities': cityList, 
 						'totalJobs': totalJobs
 					}
+					// Need to do this after Monster listings sorted out TODO
 					res.send(JSON.stringify(sendObj));
 				});
 			});
 		}
 	});
+	// Retrieve listings from Monster web%20developer
+	//var monsterJobTitle = jobTitle.replace('-', '%20');
+	
 });
 
 app.listen(process.env.PORT || 2406);
 console.log('listening for requests on 2406');
+
+
+
+
+
