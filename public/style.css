@@ -59,10 +59,6 @@ body {
 }
 
 #main {
-	/*
-	background: url('Dune10.jpg');
-	background-size:cover;
-	background-position: bottom; */
 	background-color: brown;
 	height: 100vh;
 }
