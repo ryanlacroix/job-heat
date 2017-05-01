@@ -117,6 +117,16 @@ h2 {
 	transition: 0.3s;
 }
 
+#loadingImg {
+	visibility: hidden;
+	transition: 0.2s;
+}
+
+#err {
+	visibility: hidden;
+	padding-top: 5px;
+}
+
 /* Results page */
 
 #map {

@@ -6,16 +6,25 @@ var map;
 
 window.onload = function() {
 	$('#submitSearch').click(sendSearch);
+	$('.container-search').append("<h3 id='err'>Enter a job title</h3>");
 }
 
 // Submit the job query
 function sendSearch () {
-	var searchQuery = $('#searchTitle').val();
-	$.ajax({
-		method: "GET",
-		url: '/jobreq/' + searchQuery,
-		success: showResult
-	});
+	if ($('#searchTitle').val().length === 0) {
+		$('#err').css("visibility", "visible");
+		$('#err').css("opacity", "1");
+		$('#err').css("display", "block");
+		$('#err').fadeOut(3000);
+	} else {
+		$('#loadingImg').css("visibility", "visible")
+		var searchQuery = $('#searchTitle').val();
+		$.ajax({
+			method: "GET",
+			url: '/jobreq/' + searchQuery,
+			success: showResult
+		});
+	}
 }
 
 // Begin building the results page
@@ -112,15 +121,3 @@ function getCityPositions(cityList, callback) {
 		});			
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
